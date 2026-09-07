@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Amazonia colombiana · Ecosistema y amenazas</title>
+<meta name="description" content="Un recorrido por la Amazonia colombiana: su geografía, su biodiversidad, las amenazas que enfrenta y los planes de acción para protegerla.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   TOKENS — Amazonia colombiana
+   Paleta inspirada en el dosel de la selva, el río de aguas
+   turbias y la luz que se filtra al amanecer.
+   ========================================================= */
+:root{
+  /* Primitivos */
+  --green-950:#0D2419;
+  --green-900:#123526;
+  --green-800:#17402E;
+  --green-700:#1E4E38;
+  --green-600:#2B6248;
+  --green-500:#3E8763;
+  --green-300:#93C6A8;
+  --green-200:#C4E2D0;
+  --sand-050:#FAF7ED;
+  --sand-100:#F1EBD8;
+  --clay-700:#8C3D22;
+  --clay-600:#B5502B;
+  --clay-500:#C97544;
+  --gold-500:#C98A2E;
+  --gold-400:#E3A857;
+  --gold-300:#EDC07E;
+  --ink-900:#12201A;
+  --white:#FFFDF8;
+
+  /* Semánticos */
+  --bg-deep: var(--green-950);
+  --bg-panel: var(--green-900);
+  --bg-panel-alt: var(--green-800);
+  --bg-light: var(--sand-050);
+  --bg-light-alt: var(--sand-100);
+  --text-on-dark: var(--sand-050);
+  --text-on-dark-dim: var(--green-200);
+  --text-on-light: var(--ink-900);
+  --text-on-light-dim: #4A5A4F;
+  --accent: var(--gold-400);
+  --accent-strong: var(--gold-500);
+  --alert: var(--clay-600);
+  --alert-strong: var(--clay-700);
+  --line-dark: rgba(250,247,237,0.14);
+  --line-light: rgba(18,32,26,0.12);
+
+  /* Tipografía */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "Karla", ui-sans-serif, system-ui, sans-serif;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--bg-light);
+  color:var(--text-on-light);
+  font-family:var(--font-body);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{ max-width:100%; display:block; }
+a{ color:inherit; }
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:600;
+  line-height:1.08;
+  margin:0;
+  color:inherit;
+}
+p{ margin:0 0 1em; }
+.container{
+  max-width:1120px;
+  margin:0 auto;
+  padding:0 clamp(20px,5vw,64px);
+}
+.measure{ max-width:62ch; }
+.measure-wide{ max-width:74ch; }
+section{ position:relative; }
+::selection{ background:var(--gold-300); color:var(--ink-900); }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+}
+
+/* Foco visible accesible */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--gold-400);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(13,36,25,0.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line-dark);
+}
+.nav-inner{
+  max-width:1120px; margin:0 auto;
+  padding:14px clamp(20px,5vw,64px);
+  display:flex; align-items:center; justify-content:space-between;
+  gap:20px;
+}
+.nav-mark{
+  font-family:var(--font-display);
+  font-weight:600; font-size:1.02rem;
+  color:var(--sand-050);
+  display:flex; align-items:center; gap:10px;
+  white-space:nowrap;
+}
+.nav-mark svg{ width:26px; height:26px; flex:none; }
+.nav-links{
+  display:flex; gap:clamp(10px,2vw,28px);
+  list-style:none; margin:0; padding:0;
+  font-size:0.92rem;
+}
+.nav-links a{
+  text-decoration:none; color:var(--green-200);
+  padding:6px 2px; border-bottom:1px solid transparent;
+  transition:color .2s ease, border-color .2s ease;
+}
+.nav-links a:hover{ color:var(--gold-300); border-color:var(--gold-300); }
+.nav-toggle{ display:none; }
+
+@media (max-width:760px){
+  .nav-links{
+    position:fixed; inset:56px 0 auto 0;
+    background:var(--green-950);
+    flex-direction:column; gap:0;
+    padding:8px 24px 20px;
+    border-bottom:1px solid var(--line-dark);
+    transform:translateY(-8px);
+    opacity:0; pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .nav-links.is-open{ opacity:1; pointer-events:auto; transform:translateY(0); }
+  .nav-links li{ border-top:1px solid var(--line-dark); }
+  .nav-links a{ display:block; padding:14px 2px; }
+  .nav-toggle{
+    display:flex; align-items:center; justify-content:center;
+    width:36px; height:36px; background:none; border:1px solid var(--line-dark);
+    border-radius:8px; cursor:pointer;
+  }
+  .nav-toggle svg{ width:18px; height:18px; }
+  .nav-toggle path{ stroke:var(--sand-050); }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{
+  background:
+    radial-gradient(ellipse 900px 500px at 82% -10%, rgba(227,168,87,0.16), transparent 60%),
+    linear-gradient(180deg, var(--green-950) 0%, var(--green-900) 100%);
+  color:var(--text-on-dark);
+  overflow:hidden;
+  padding-bottom:0;
+}
+.hero-inner{
+  display:grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap:clamp(24px,4vw,48px);
+  align-items:center;
+  padding-top:clamp(56px,8vw,88px);
+}
+@media (max-width:860px){
+  .hero-inner{ grid-template-columns:1fr; }
+}
+.hero-eyebrow{
+  font-size:0.9rem; color:var(--gold-300);
+  margin-bottom:18px; font-weight:600;
+  letter-spacing:0.01em;
+}
+.hero h1{
+  font-size:clamp(2.5rem, 5.4vw, 4.4rem);
+  color:var(--sand-050);
+  max-width:14ch;
+}
+.hero h1 em{
+  font-style:italic; color:var(--gold-300); font-weight:500;
+}
+.hero-lede{
+  margin-top:22px; font-size:1.18rem; color:var(--green-200);
+  max-width:46ch; line-height:1.6;
+}
+.hero-cta{
+  margin-top:34px; display:flex; gap:16px; flex-wrap:wrap;
+}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-body); font-weight:600; font-size:0.98rem;
+  padding:13px 22px; border-radius:999px;
+  text-decoration:none; cursor:pointer; border:1px solid transparent;
+  transition:transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.btn:hover{ transform:translateY(-1px); }
+.btn-primary{ background:var(--gold-400); color:var(--ink-900); }
+.btn-primary:hover{ background:var(--gold-300); }
+.btn-ghost{ border-color:var(--line-dark); color:var(--sand-050); }
+.btn-ghost:hover{ border-color:var(--gold-300); color:var(--gold-300); }
+
+.hero-art{ position:relative; }
+
+.hero-stats{
+  margin-top:clamp(40px,6vw,64px);
+  border-top:1px solid var(--line-dark);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  padding:28px 0 clamp(40px,6vw,64px);
+}
+@media (max-width:700px){ .hero-stats{ grid-template-columns:repeat(2,1fr); } }
+.stat b{
+  display:block; font-family:var(--font-display); font-weight:600;
+  font-size:clamp(1.6rem,2.6vw,2.1rem); color:var(--gold-300);
+}
+.stat span{ font-size:0.86rem; color:var(--green-200); }
+
+/* Wave divider */
+.wave{ display:block; line-height:0; }
+.wave svg{ width:100%; height:auto; display:block; }
+
+/* =========================================================
+   SECTION HEADERS (shared)
+   ========================================================= */
+.section-head{
+  display:grid; grid-template-columns: 1.1fr 1fr; gap:40px;
+  margin-bottom:44px; align-items:end;
+}
+@media (max-width:760px){ .section-head{ grid-template-columns:1fr; gap:16px; } }
+.section-head h2{ font-size:clamp(1.9rem,3.4vw,2.7rem); }
+.section-head .lede{ font-size:1.05rem; }
+.on-dark .lede{ color:var(--green-200); }
+.on-light .lede{ color:var(--text-on-light-dim); }
+
+/* =========================================================
+   CARACTERÍSTICAS
+   ========================================================= */
+.characteristics{ background:var(--bg-light); color:var(--text-on-light); padding:clamp(60px,8vw,96px) 0; }
+
+.map-card{
+  background:var(--green-900); border-radius:20px; padding:28px;
+  color:var(--sand-050);
+}
+.map-card svg{ width:100%; height:auto; }
+.map-legend{ margin-top:16px; font-size:0.86rem; color:var(--green-200); display:flex; gap:18px; flex-wrap:wrap; }
+.map-legend span{ display:inline-flex; align-items:center; gap:7px; }
+.dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+
+.info-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:8px; }
+@media (max-width:600px){ .info-grid{ grid-template-columns:1fr; } }
+.info-card{
+  border:1px solid var(--line-light); border-radius:14px; padding:20px 22px;
+  background:var(--white);
+}
+.info-card b{ display:block; font-family:var(--font-display); font-size:1.5rem; margin-bottom:2px; color:var(--green-700); }
+.info-card span{ font-size:0.9rem; color:var(--text-on-light-dim); }
+
+.bio-strip{ margin-top:56px; }
+.bio-strip h3{ font-size:1.5rem; margin-bottom:6px; }
+.bio-cols{ display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-top:24px; }
+@media (max-width:760px){ .bio-cols{ grid-template-columns:1fr; } }
+.bio-col h4{ font-size:1.05rem; font-family:var(--font-body); font-weight:700; color:var(--green-700); margin-bottom:12px; }
+.species-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+.species-list li{ display:flex; gap:14px; align-items:flex-start; }
+.species-list .icon{ width:34px; height:34px; flex:none; color:var(--green-600); }
+.species-photo{ width:56px; height:56px; flex:none; object-fit:cover; border-radius:12px; border:1px solid var(--line-light); }
+.species-list b{ display:block; font-size:0.98rem; }
+.species-list p{ margin:2px 0 0; font-size:0.88rem; color:var(--text-on-light-dim); }
+
+/* =========================================================
+   AMENAZAS
+   ========================================================= */
+.threats{ background:var(--bg-panel); color:var(--text-on-dark); padding:clamp(60px,8vw,96px) 0; }
+
+.threat-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--line-dark); border-radius:18px; overflow:hidden; }
+@media (max-width:760px){ .threat-grid{ grid-template-columns:1fr; } }
+.threat-card{ background:var(--green-800); padding:28px 26px; }
+.threat-card .num{ font-family:var(--font-display); font-size:1rem; color:var(--gold-300); margin-bottom:10px; }
+.threat-card h3{ font-size:1.2rem; color:var(--sand-050); margin-bottom:8px; }
+.threat-card p{ font-size:0.94rem; color:var(--green-200); margin-bottom:0; }
+
+.chart-block{
+  margin-top:56px; background:var(--green-800); border-radius:18px; padding:clamp(24px,3vw,36px);
+  display:grid; grid-template-columns:1.1fr 0.9fr; gap:32px;
+}
+@media (max-width:800px){ .chart-block{ grid-template-columns:1fr; } }
+.chart-block h3{ font-size:1.3rem; color:var(--sand-050); margin-bottom:6px; }
+.chart-block .lede{ color:var(--green-200); font-size:0.95rem; margin-bottom:22px; }
+.bars{ display:flex; align-items:flex-end; gap:22px; height:180px; padding-top:10px; }
+.bar-col{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+.bar{ width:100%; max-width:56px; background:linear-gradient(180deg, var(--gold-400), var(--clay-600)); border-radius:6px 6px 2px 2px; position:relative; }
+.bar b{ position:absolute; top:-24px; left:50%; transform:translateX(-50%); font-size:0.82rem; color:var(--sand-050); white-space:nowrap; }
+.bar-col span{ margin-top:10px; font-size:0.82rem; color:var(--green-200); }
+.chart-note{ font-size:0.8rem; color:var(--green-300); margin-top:18px; }
+.chart-side p{ font-size:0.94rem; color:var(--green-200); }
+.chart-side .callout{
+  border-left:3px solid var(--gold-400); padding-left:16px; margin-bottom:18px;
+}
+.chart-side .callout b{ color:var(--sand-050); display:block; font-family:var(--font-display); font-size:1.15rem; }
+
+.wildlife-alert{ margin-top:56px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media (max-width:760px){ .wildlife-alert{ grid-template-columns:1fr; } }
+.wa-card{ background:var(--green-800); border-radius:16px; padding:22px; border-top:3px solid var(--alert); }
+.wa-card .icon{ width:36px; height:36px; color:var(--gold-300); margin-bottom:12px; }
+.wa-card h4{ font-size:1.02rem; color:var(--sand-050); margin-bottom:6px; }
+.wa-card p{ font-size:0.88rem; color:var(--green-200); margin:0; }
+
+/* =========================================================
+   ACCIÓN
+   ========================================================= */
+.action{ background:var(--bg-light-alt); color:var(--text-on-light); padding:clamp(60px,8vw,96px) 0; }
+
+.timeline{ position:relative; margin-top:20px; padding-left:34px; border-left:2px dashed var(--gold-400); }
+.tl-item{ position:relative; padding-bottom:38px; }
+.tl-item:last-child{ padding-bottom:0; }
+.tl-item::before{
+  content:"✓"; position:absolute; left:-44px; top:0; width:20px; height:20px; border-radius:50%;
+  background:var(--gold-500); color:var(--white); font-size:12px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 3px var(--bg-light-alt);
+}
+.tl-item h4{ font-size:1.12rem; color:var(--green-800); margin-bottom:6px; }
+.tl-item .tag{ display:inline-block; font-size:0.76rem; font-weight:700; padding:2px 10px; border-radius:999px; margin-bottom:8px; }
+.tl-item .tag-note{ font-weight:400; font-size:0.76rem; opacity:0.8; }
+.tag-gov{ background:#E4D6F7; color:#4B2E77; }
+.tag-inter{ background:#FBD9C9; color:#7A3B1D; }
+.tag-monitor{ background:#FDE6A6; color:#7A5A0A; }
+.tag-conserv{ background:#C9E7E2; color:#1F5C53; }
+.tag-community{ background:#FAD1DE; color:#8A2A48; }
+.tl-item p{ font-size:0.95rem; color:var(--text-on-light-dim); margin-bottom:0; }
+
+.action-cols{ display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:64px; }
+@media (max-width:820px){ .action-cols{ grid-template-columns:1fr; gap:40px; } }
+.action-cols h3{ font-size:1.35rem; margin-bottom:16px; color:var(--green-800); }
+
+.call-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; }
+.call-list li{ display:flex; gap:14px; align-items:flex-start; background:var(--white); border:1px solid var(--line-light); border-radius:14px; padding:16px 18px; }
+.call-list .icon{ width:26px; height:26px; flex:none; color:var(--clay-600); margin-top:2px; }
+.call-list b{ display:block; font-size:0.98rem; }
+.call-list p{ margin:2px 0 0; font-size:0.87rem; color:var(--text-on-light-dim); }
+
+/* =========================================================
+   CONCLUSIÓN
+   ========================================================= */
+.conclusion{
+  background:
+    radial-gradient(ellipse 700px 400px at 15% 10%, rgba(227,168,87,0.14), transparent 60%),
+    var(--green-950);
+  color:var(--text-on-dark); padding:clamp(70px,9vw,110px) 0; text-align:center;
+}
+.conclusion .container{ max-width:760px; }
+.conclusion h2{ font-size:clamp(2rem,4vw,2.9rem); color:var(--sand-050); }
+.conclusion p{ font-size:1.1rem; color:var(--green-200); margin-top:20px; }
+.conclusion .btn{ margin-top:30px; }
+
+/* =========================================================
+   REFERENCIAS
+   ========================================================= */
+.references{ background:var(--bg-light); color:var(--text-on-light); padding:clamp(56px,7vw,84px) 0; }
+.ref-list{ list-style:none; margin:24px 0 0; padding:0; counter-reset:ref; display:flex; flex-direction:column; gap:14px; }
+.ref-list li{ counter-increment:ref; position:relative; padding-left:34px; font-size:0.92rem; color:var(--text-on-light-dim); }
+.ref-list li::before{
+  content:counter(ref); position:absolute; left:0; top:0;
+  font-family:var(--font-display); font-weight:600; color:var(--green-600); font-size:0.92rem;
+}
+.ref-list a{ color:var(--green-700); text-decoration:underline; text-underline-offset:2px; word-break:break-word; }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer{ background:var(--green-950); color:var(--green-300); padding:32px 0; font-size:0.85rem; }
+.footer-inner{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-3-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-3 8-7 11Z" stroke="#E3A857" stroke-width="1.6"/><path d="M12 4v13" stroke="#E3A857" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Amazonia colombiana
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#ecosistema">Ecosistema</a></li>
+      <li><a href="#amenazas">Amenazas</a></li>
+      <li><a href="#accion">Plan de acción</a></li>
+      <li><a href="#conclusion">Conclusión</a></li>
+      <li><a href="#referencias">Referencias</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============================= INICIO ============================= -->
+<header class="hero" id="inicio">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">Un ecosistema, un equilibrio planetario</p>
+        <h1>La Amazonia colombiana:<br>el <em>pulso verde</em> de un continente</h1>
+        <p class="hero-lede">48 millones de hectáreas de selva, ríos y culturas indígenas que regulan el clima de Suramérica — y que hoy pierden bosque a un ritmo cercano a 200 hectáreas cada día.</p>
+        <div class="hero-cta">
+          <a href="#ecosistema" class="btn btn-primary">Conocer el ecosistema</a>
+          <a href="#accion" class="btn btn-ghost">Ver el plan de acción</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 480 420" fill="none">
+          <circle cx="360" cy="80" r="70" fill="#E3A857" opacity="0.85"/>
+          <circle cx="360" cy="80" r="110" fill="#E3A857" opacity="0.12"/>
+          <path d="M0 300 C 60 260, 100 320, 160 280 S 260 240, 320 290 S 420 260, 480 300 V420 H0 Z" fill="#123526"/>
+          <path d="M0 330 C 70 300, 110 350, 180 320 S 280 280, 340 330 S 430 300, 480 340 V420 H0 Z" fill="#17402E"/>
+          <path d="M0 365 C 60 345, 130 385, 200 360 S 300 335, 360 370 S 440 345, 480 375 V420 H0 Z" fill="#1E4E38"/>
+          <g stroke="#0D2419" stroke-width="6" stroke-linecap="round">
+            <path d="M90 300 V240"/>
+            <path d="M150 285 V225"/>
+            <path d="M230 275 V210"/>
+            <path d="M300 285 V230"/>
+            <path d="M380 300 V245"/>
+          </g>
+          <g fill="#2B6248">
+            <ellipse cx="90" cy="228" rx="34" ry="20"/>
+            <ellipse cx="150" cy="212" rx="40" ry="22"/>
+            <ellipse cx="230" cy="198" rx="46" ry="24"/>
+            <ellipse cx="300" cy="216" rx="38" ry="22"/>
+            <ellipse cx="380" cy="232" rx="34" ry="20"/>
+          </g>
+          <path d="M0 402 C 70 388, 120 412, 190 396 S 300 380, 380 402 S 450 392, 480 400" stroke="#E3A857" stroke-width="2" opacity="0.5" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><b>481.544 km²</b><span>Área total en Colombia</span></div>
+      <div class="stat"><b>10</b><span>Departamentos que la integran</span></div>
+      <div class="stat"><b>1 de cada 10</b><span>Especies del planeta viven aquí</span></div>
+      <div class="stat"><b>72.409 ha</b><span>Deforestadas en 2025</span></div>
+    </div>
+  </div>
+
+  <div class="wave">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 40 C 240 90, 480 0, 720 40 S 1200 90, 1440 40 V90 H0 Z" fill="#FAF7ED"/></svg>
+  </div>
+</header>
+
+<!-- ============================= ECOSISTEMA ============================= -->
+<section class="characteristics" id="ecosistema">
+  <div class="container">
+    <div class="section-head on-light">
+      <h2>Un territorio de ríos, selva y culturas vivas</h2>
+      <p class="lede">La Amazonia colombiana no es una sola selva igual en todas partes: es una mezcla de bosques tropicales, ríos de aguas claras, llanuras que se inundan y territorios indígenas, ubicada en el extremo sur del país.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;">
+      <div class="map-card">
+        <svg viewBox="0 0 360 300" aria-label="Ubicación esquemática de la región amazónica dentro de Colombia">
+          <path d="M120 10 C 90 40, 60 60, 55 100 C 50 150, 70 180, 60 220 C 55 250, 90 270, 130 275 C 180 285, 230 270, 260 240 C 290 210, 300 170, 285 130 C 275 100, 290 70, 260 45 C 230 15, 170 5, 120 10 Z" fill="#0D2419" stroke="#3E8763" stroke-width="1.5"/>
+          <path d="M55 165 C 90 150, 140 175, 175 165 C 220 155, 250 175, 285 165 C 292 190, 285 215, 260 235 C 225 265, 175 280, 130 272 C 95 265, 65 245, 60 215 C 57 198, 55 182, 55 165 Z" fill="#3E8763" opacity="0.9"/>
+          <path d="M70 175 C 110 200, 150 190, 190 205 C 225 218, 250 210, 270 195" stroke="#0D2419" stroke-width="2.4" fill="none" opacity="0.55"/>
+          <path d="M90 220 C 120 232, 160 222, 200 235" stroke="#0D2419" stroke-width="2" fill="none" opacity="0.45"/>
+          <circle cx="176" cy="255" r="4.5" fill="#E3A857"/>
+          <text x="184" y="259" fill="#FAF7ED" font-family="Karla, sans-serif" font-size="11">Leticia</text>
+        </svg>
+        <p class="map-legend">
+          <span><span class="dot" style="background:#3E8763"></span> Región amazónica (42,3% del territorio continental)</span>
+          <span><span class="dot" style="background:#0D2419; border:1px solid #3E8763"></span> Resto de Colombia</span>
+        </p>
+      </div>
+
+      <div>
+        <div class="info-grid">
+          <div class="info-card"><b>23,3%</b><span>del territorio nacional total, incluida el área marina</span></div>
+          <div class="info-card"><b>61 + 18</b><span>municipios y zonas que aún no tienen municipio propio</span></div>
+          <div class="info-card"><b>79</b><span>divisiones administrativas en total</span></div>
+          <div class="info-card"><b>6.300+</b><span>especies de plantas registradas</span></div>
+        </div>
+        <p class="measure" style="margin-top:22px; color:var(--text-on-light-dim); font-size:0.95rem;">
+          La región cubre el sur de Vichada y Meta, la totalidad de Guainía, Guaviare, Vaupés, Amazonas, Putumayo y Caquetá, la Bota caucana y las zonas de Nariño que también hacen parte de la cuenca del Amazonas. Sus límites se trazan siguiendo los ríos, el punto donde termina el bosque, y las fronteras que Colombia comparte con otros países al sur y al oriente.
+        </p>
+      </div>
+    </div>
+
+    <div class="bio-strip">
+      <h3>Flora y fauna</h3>
+      <p class="measure-wide" style="color:var(--text-on-light-dim);">Con más de 674 especies de aves, 212 de mamíferos, 158 de anfibios y 753 de peces registradas en la Amazonia colombiana, la región concentra una fracción enorme de la biodiversidad del planeta, y los científicos calculan que aún hay muchas especies que ni siquiera se han descubierto.</p>
+
+      <div class="bio-cols">
+        <div class="bio-col">
+          <h4>Fauna</h4>
+          <ul class="species-list">
+            <li>
+              <img class="species-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Chapultepec%20Zoo%20-%20Jaguar%20(02).jpg?width=160" alt="Jaguar" loading="lazy">
+              <div><b>Jaguar</b><p>El rey silencioso de la selva: nada mejor que casi cualquier otro felino del mundo y su mordida es tan fuerte que puede atravesar el caparazón de una tortuga. Donde hay jaguares, es señal de que el bosque está sano.</p></div>
+            </li>
+            <li>
+              <img class="species-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Inia.jpg?width=160" alt="Delfín rosado" loading="lazy">
+              <div><b>Delfín rosado</b><p>Está en peligro de extinción. Nace de color gris y se va poniendo rosado con los años; entre más viejo y más juega, más rosado se pone, ¡como si se sonrojara!</p></div>
+            </li>
+            <li>
+              <img class="species-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Red-and-green%20macaw%20(Ara%20chloropterus)%20juvenile.JPG?width=160" alt="Guacamaya roja" loading="lazy">
+              <div><b>Guacamaya roja</b><p>Un ave muy representativa de la región, amenazada por la venta ilegal de animales silvestres y por la pérdida de su hogar natural.</p></div>
+            </li>
+            <li>
+              <img class="species-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Giantotter.jpg?width=160" alt="Nutria gigante" loading="lazy">
+              <div><b>Nutria gigante</b><p>Puede medir hasta 1,8 metros, casi como una persona acostada. Vive en grupos familiares muy unidos que se avisan entre sí con silbidos y gritos cuando hay peligro cerca.</p></div>
+            </li>
+          </ul>
+        </div>
+        <div class="bio-col">
+          <h4>Flora</h4>
+          <ul class="species-list">
+            <li>
+              <svg class="icon" viewBox="0 0 40 40" fill="none"><path d="M20 32V14" stroke="currentColor" stroke-width="1.6"/><path d="M20 14c-6 0-9-4-9-8 5 0 9 3 9 8Zm0 0c6 0 9-4 9-8-5 0-9 3-9 8Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              <div><b>Ceibas y árboles emergentes</b><p>Son gigantes que asoman la cabeza por encima de todos los demás árboles, como si quisieran ver el paisaje desde arriba, y sirven de hogar a un sinnúmero de animales que viven en las alturas del bosque.</p></div>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 40 40" fill="none"><path d="M20 30c-8 0-12-6-10-14 8 0 13 5 10 14Zm0 0c8 0 12-6 10-14-8 0-13 5-10 14Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              <div><b>Orquídeas</b><p>Plantas que crecen sobre otras plantas. Son muy apreciadas por su belleza y muy sensibles a la pérdida del bosque. Dato curioso: algunas tardan varios años en dar su primera flor.</p></div>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 40 40" fill="none"><path d="M20 33V17" stroke="currentColor" stroke-width="1.6"/><path d="M20 17 12 22M20 17l8 5M20 22l-6 4M20 22l6 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              <div><b>Palmas de moriche</b><p>Una verdadera despensa de la selva: sus frutos alimentan a decenas de animales y también a las comunidades indígenas, que además usan sus hojas para tejer artesanías y techos.</p></div>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="18" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M20 26v7" stroke="currentColor" stroke-width="1.6"/></svg>
+              <div><b>Bromelias</b><p>Plantas que crecen sobre otras plantas. Acumulan agua y crean pequeños refugios para otros seres vivos en las copas de los árboles. Algunas ranas incluso ponen ahí sus huevos, como en una piscina en miniatura.</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= AMENAZAS ============================= -->
+<section class="threats" id="amenazas">
+  <div class="container">
+    <div class="section-head on-dark">
+      <h2>Una selva bajo presión</h2>
+      <p class="lede">La deforestación, la ganadería en grandes extensiones de tierra, la minería ilegal y el cambio climático avanzan sobre la Amazonia colombiana, con efectos directos sobre su biodiversidad y sobre las comunidades que dependen de ella.</p>
+    </div>
+
+    <div class="threat-grid">
+      <div class="threat-card">
+        <div class="num">01</div>
+        <h3>Ganadería en grandes extensiones y ocupación de tierras</h3>
+        <p>Según el Ideam (la entidad que estudia el clima y el ambiente en Colombia), lo que más está acabando con el bosque en esta región no son los cultivos ilícitos, sino la tala de árboles para convertir la tierra en potreros de ganado y la ocupación de nuevas tierras.</p>
+      </div>
+      <div class="threat-card">
+        <div class="num">02</div>
+        <h3>Vías ilegales e infraestructura sin planeación</h3>
+        <p>La construcción de carreteras sin permiso divide el bosque en pedazos y facilita que la gente ocupe nuevas zonas, especialmente en la franja donde se unen los Andes y la Amazonia (conocida como el Arco Amazónico). Un dato curioso: casi toda la deforestación ocurre a pocos kilómetros de una vía, así que entre más lejos de un camino, más sano suele estar el bosque.</p>
+      </div>
+      <div class="threat-card">
+        <div class="num">03</div>
+        <h3>Minería ilegal y contaminación de ríos</h3>
+        <p>Sacar oro de los ríos sin ningún control contamina el agua y la tierra, y afecta directamente a especies acuáticas como el delfín rosado y el manatí amazónico. El mercurio que se usa para separar el oro se queda en el agua durante años y va pasando de los peces a los animales que se los comen, incluidos nosotros.</p>
+      </div>
+      <div class="threat-card">
+        <div class="num">04</div>
+        <h3>Cambio climático y sequías</h3>
+        <p>El aumento de la temperatura y la baja en el nivel de los ríos hacen que haya más incendios, y ponen en riesgo a las especies que no soportan el agua demasiado caliente. En años recientes se han visto tramos de ríos amazónicos tan bajos que quedan peces y hasta delfines varados en la orilla.</p>
+      </div>
+    </div>
+
+    <div class="chart-block">
+      <div>
+        <h3>Después de varios años bajando, la deforestación vuelve a subir</h3>
+        <p class="lede">Hectáreas de bosque perdidas en la Amazonia colombiana, según los informes oficiales del Ideam y Maap, un proyecto que vigila la selva amazónica usando fotos tomadas por satélite.</p>
+        <div class="bars">
+          <div class="bar-col"><div class="bar" style="height:52%;"><b>44.000 ha</b></div><span>2023</span></div>
+          <div class="bar-col"><div class="bar" style="height:82%;"><b>68.700 ha</b></div><span>2024</span></div>
+          <div class="bar-col"><div class="bar" style="height:88%;"><b>72.409 ha</b></div><span>2025</span></div>
+        </div>
+        <p class="chart-note">Son cifras aproximadas, porque el Ideam y el proyecto Maap las calculan de manera distinta. El dato de 2025 del Ideam muestra un aumento del 6% frente al año anterior, y se concentra sobre todo en Meta, Caquetá, Guaviare y Putumayo, departamentos que juntos suman casi toda la deforestación de la región.</p>
+      </div>
+      <div class="chart-side">
+        <div class="callout">
+          <b>2.128.673 ha</b>
+          <p>de bosque perdidas en total en la selva amazónica colombiana entre 2001 y 2025.</p>
+        </div>
+        <p>Aun con este repunte, la cifra de 2025 sigue siendo un 18% menor al promedio de los últimos 25 años, gracias a los acuerdos de conservación firmados en años recientes con comunidades y autoridades locales.</p>
+      </div>
+    </div>
+
+    <div class="wildlife-alert">
+      <div class="wa-card">
+        <svg class="icon" viewBox="0 0 40 40" fill="none"><path d="M6 24c6-10 16-14 24-8 3 2 4 6 2 9-4 5-13 6-19 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <h4>Delfines de río en peligro</h4>
+        <p>Tanto el delfín rosado como el gris están clasificados como especies en peligro por los expertos internacionales en conservación, afectados por la pesca, el mercurio que deja la minería y el aumento de la temperatura del agua.</p>
+      </div>
+      <div class="wa-card">
+        <svg class="icon" viewBox="0 0 40 40" fill="none"><path d="M20 32c-9-6-13-13-9-19 3-4 9-4 9 1 0-5 6-5 9-1 4 6 0 13-9 19Z" stroke="currentColor" stroke-width="1.6"/></svg>
+        <h4>Pirarucú y manatí, casi ausentes</h4>
+        <p>Las comunidades que viven a orillas del río cuentan que estas especies, antes abundantes, hoy son difíciles de encontrar por la pesca excesiva y la caza del pasado. El pirarucú puede medir más de dos metros y necesita subir a la superficie a respirar aire cada pocos minutos, lo que en el pasado lo hacía muy fácil de cazar.</p>
+      </div>
+      <div class="wa-card">
+        <svg class="icon" viewBox="0 0 40 40" fill="none"><path d="M20 6v28M9 14c4 2 7 2 11 0M9 22c5 2 11 2 15 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <h4>Fragmentación del Arco Amazónico</h4>
+        <p>La pérdida de bosque en el borde entre los Andes y la Amazonia corta el paso natural de los animales entre estas dos regiones, algo clave para que las especies puedan migrar. Por ese corredor se mueven animales como el oso de anteojos, el único oso que vive en Suramérica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= ACCIÓN ============================= -->
+<section class="action" id="accion">
+  <div class="container">
+    <div class="section-head on-light">
+      <h2>Resoluciones y planes de acción</h2>
+      <p class="lede">El gobierno, las comunidades indígenas, fundaciones y organizaciones sociales, y el apoyo de otros países han construido, con avances y tropiezos, un conjunto de respuestas frente a la crisis amazónica.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tag tag-gov">Gubernamental <span class="tag-note">· impulsado por el Estado</span></span>
+        <h4>Visión Amazonía y el programa REM Colombia</h4>
+        <p>REM significa "Pioneros de REDD" y es un mecanismo internacional que le paga a un país según los resultados que logre. Este programa está financiado por Noruega, Alemania, Reino Unido y el Fondo para el Medio Ambiente Mundial (GEF), y apoya el buen cuidado de los bosques, actividades económicas sostenibles y la participación de comunidades indígenas, a cambio de reducir la deforestación.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tag tag-inter">Interinstitucional <span class="tag-note">· varias entidades trabajando juntas</span></span>
+        <h4>Pacto por la Deforestación Cero</h4>
+        <p>Acuerdo firmado por alcaldes, gobernadores y las autoridades ambientales regionales de la Amazonia (las Corporaciones Autónomas Regionales) para coordinar el control de sus territorios y ofrecer créditos a los campesinos que se comprometan a cuidar el bosque.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tag tag-monitor">Monitoreo <span class="tag-note">· vigilancia y seguimiento</span></span>
+        <h4>Alertas tempranas del Ideam</h4>
+        <p>Cada tres meses, el Ideam (la entidad que vigila el clima y el ambiente del país) publica informes hechos con fotos satelitales que muestran en qué zonas, como Meta, Caquetá, Guaviare y Putumayo, se está talando más bosque, para poder actuar antes de que el daño crezca. Con estas fotos tomadas desde el espacio es posible detectar la tala de un área tan pequeña como una cancha de fútbol.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tag tag-conserv">Conservación <span class="tag-note">· cuidado de la naturaleza</span></span>
+        <h4>Áreas protegidas y ampliación de Chiribiquete</h4>
+        <p>El Parque Nacional Natural Serranía de Chiribiquete (una enorme zona protegida en el corazón de la Amazonia, famosa por sus paisajes rocosos y por tener algunas de las pinturas hechas por indígenas más antiguas de América) fue ampliado hasta convertirse en uno de los parques de selva tropical más grandes del planeta, junto a otras áreas como La Macarena y Amacayacu. La Unesco lo reconoce por su valor natural y cultural.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tag tag-community">Comunidad y ciencia <span class="tag-note">· gente y expertos trabajando juntos</span></span>
+        <h4>Fundación Omacha y organizaciones locales</h4>
+        <p>La Fundación Omacha, dedicada a proteger a los delfines de río y otras especies acuáticas, impulsa programas de pesca responsable, paseos para ver delfines sin molestarlos, educación ambiental y alternativas económicas como la artesanía, trabajando junto a comunidades de Puerto Nariño y otros territorios a orillas del río.</p>
+      </div>
+    </div>
+
+    <div class="action-cols">
+      <div>
+        <h3>Qué se está proponiendo</h3>
+        <ul class="call-list">
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M2 9c2-3 4-3 6 0s4 3 6 0 4-3 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2 15c2-3 4-3 6 0s4 3 6 0 4-3 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <div><b>Recuperar las orillas de los ríos</b><p>Volver a sembrar plantas en las orillas de ríos y quebradas dañadas por la ganadería y la minería, para que el agua se mantenga limpia y fresca tanto para los peces como para las comunidades.</p></div>
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            <div><b>Dar y proteger tierras propias a los pueblos indígenas</b><p>Reconocer que las comunidades indígenas cuiden y decidan sobre su propio territorio, porque es una de las formas más efectivas de proteger el bosque.</p></div>
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/></svg>
+            <div><b>Cultivos sostenibles a largo plazo</b><p>Impulsar el cultivo de cacao, caucho y frutales amazónicos, que duran muchos años, como alternativa a la ganadería que ocupa grandes extensiones de tierra. Un dato curioso: un solo árbol de cacao puede seguir dando frutos por más de 25 años sin necesidad de talar más bosque.</p></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>Qué puede hacer cada persona</h3>
+        <ul class="call-list">
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 9h16l-2 11H6L4 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 9V6a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.6"/></svg>
+            <div><b>Elegir alimentos con origen conocido</b><p>Preferir carne y productos del campo cuyo origen se pueda comprobar, y que no vengan de tierras deforestadas recientemente. Cada compra consciente es un pequeño voto por un bosque en pie.</p></div>
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M15 9l-2 6-4-2 2-6 4 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            <div><b>Apoyar el turismo de naturaleza responsable</b><p>Viajar con operadores que respeten a las comunidades y no perturben la fauna silvestre, y que dejen beneficios económicos directos a la gente de la región.</p></div>
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-3-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-3 8-7 11Z" stroke="currentColor" stroke-width="1.6"/></svg>
+            <div><b>Respaldar a las organizaciones locales</b><p>Donar tiempo, difusión o recursos a fundaciones que trabajan directamente en el territorio amazónico. Hasta el aporte más pequeño ayuda a que sigan haciendo presencia en el territorio.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CONCLUSIÓN ============================= -->
+<section class="conclusion" id="conclusion">
+  <div class="container">
+    <h2>La Amazonia no se cuida sola</h2>
+    <p>Cada hectárea que se pierde es menos agua, menos clima estable y menos vida para Colombia y para el planeta. Pero las cifras también muestran que, cuando hay decisión del gobierno, comunidades organizadas y control constante del territorio, la deforestación puede frenarse. Proteger este ecosistema es una tarea compartida: exige política pública, ciencia, presencia local y decisiones cotidianas de cada persona.</p>
+    <a href="#accion" class="btn btn-primary">Revisar el plan de acción</a>
+  </div>
+</section>
+
+<!-- ============================= REFERENCIAS ============================= -->
+<section class="references" id="referencias">
+  <div class="container">
+    <h2 style="font-size:clamp(1.7rem,3vw,2.2rem);">Referencias</h2>
+    <p style="color:var(--text-on-light-dim); margin-top:10px;">Fuentes institucionales, académicas y periodísticas consultadas para la elaboración de esta página.</p>
+    <ol class="ref-list">
+      <li>Instituto Amazónico de Investigaciones Científicas SINCHI. (2026). <em>La Amazonia colombiana</em>. SIAT-AC. <a href="https://siatac.co/la-amazonia-colombiana/" target="_blank" rel="noopener">https://siatac.co/la-amazonia-colombiana/</a></li>
+      <li>World Wildlife Fund. (s.f.). <em>Amazonía</em>. WWF. <a href="https://www.worldwildlife.org/es/lugares/amazon%C3%ADa/" target="_blank" rel="noopener">https://www.worldwildlife.org/es/lugares/amazonía/</a></li>
+      <li>World Wildlife Fund. (2022). <em>Amazonía en crisis: la pérdida de bosques amenaza a la región y al planeta</em>. WWF. <a href="https://www.worldwildlife.org/descubre-wwf/historias/amazonia-en-crisis-la-perdida-de-bosques-amenaza-a-la-region-y-al-planeta" target="_blank" rel="noopener">worldwildlife.org</a></li>
+      <li>Banco Mundial. (2019, 22 de mayo). <em>Entrevista con Thomas Lovejoy: Por qué la biodiversidad de la Amazonia es fundamental para el planeta</em>. <a href="https://www.bancomundial.org/es/news/feature/2019/05/22/why-the-amazons-biodiversity-is-critical-for-the-globe" target="_blank" rel="noopener">bancomundial.org</a></li>
+      <li>Flórez Dowse, P. (s.f.). <em>El Amazonas colombiano: biodiversidad, impacto ambiental y turismo sostenible</em>. ANEIA, Universidad de los Andes. <a href="https://aneia.uniandes.edu.co/el-amazonas-colombiano-biodiversidad-impacto-ambiental-y-turismo-sostenible" target="_blank" rel="noopener">aneia.uniandes.edu.co</a></li>
+      <li>Mongabay Latam. (2026, abril). <em>Colombia: la deforestación aumentó en la Amazonía durante 2025, según un informe</em>. <a href="https://es.mongabay.com/short-article/2026/04/colombia-deforestacion-aumento-amazonia-durante-2025-informe/" target="_blank" rel="noopener">es.mongabay.com</a></li>
+      <li>Mongabay Latam. (2026, agosto). <em>Colombia: la deforestación aumentó en 2025, según informe sobre la Amazonía</em>. <a href="https://es.mongabay.com/short-article/2026/08/colombia-deforestacion-aumento-2025-amazonia-informe/" target="_blank" rel="noopener">es.mongabay.com</a></li>
+      <li>Ministerio de Ambiente y Desarrollo Sostenible. (2020, 29 de enero). <em>Autoridades locales de la Amazonía firman el Gran Pacto por la deforestación cero</em>. <a href="https://www.minambiente.gov.co/autoridades-locales-de-la-amazonia-firman-el-gran-pacto-por-la-deforestacion-cero/" target="_blank" rel="noopener">minambiente.gov.co</a></li>
+      <li>Ministerio de Ambiente y Desarrollo Sostenible. (2025). <em>Alertas de deforestación en la Amazonia cayeron 16% en el segundo trimestre de este año</em>. <a href="https://www.minambiente.gov.co/alertas-de-deforestacion-en-la-amazonia-cayeron-16-en-segundo-trimestre-de-este-ano/" target="_blank" rel="noopener">minambiente.gov.co</a></li>
+      <li>Ministerio de Ambiente y Desarrollo Sostenible. (2025). <em>En 2024 Colombia consolidó la segunda cifra de deforestación más baja de la historia</em>. <a href="https://www.minambiente.gov.co/en-2024-colombia-consolido-la-segunda-cifra-de-deforestacion-mas-baja-en-de-la-historia/" target="_blank" rel="noopener">minambiente.gov.co</a></li>
+      <li>El Espectador. (2025, 8 de octubre). <em>La Amazonia perdió 1.198 hectáreas de bosque entre abril y junio, según el Ideam</em>. <a href="https://www.elespectador.com/ambiente/amazonas/la-amazonia-perdio-1198-hectareas-de-bosque-entre-abril-y-junio-de-2025/" target="_blank" rel="noopener">elespectador.com</a></li>
+      <li>El Espectador. (2026, 1 de agosto). <em>La deforestación en Colombia creció frente a 2024: en 2025 el país perdió 119.000 hectáreas</em>. <a href="https://www.elespectador.com/ambiente/amazonas/crecio-la-deforestacion-en-colombia-en-2025-el-pais-perdio-119000-hectareas/" target="_blank" rel="noopener">elespectador.com</a></li>
+      <li>La Silla Vacía. (s.f.). <em>Disminuyó un 9,35% la deforestación en la Amazonia colombiana en 2025</em>. <a href="https://www.lasillavacia.com/silla-amazonia/amazonia-en-breve/disminuyo-un-935-la-deforestacion-en-la-amazonia-colombiana-en-2025/" target="_blank" rel="noopener">lasillavacia.com</a></li>
+      <li>El Tiempo. (s.f.). <em>Delfines rosados del Amazonas están en peligro por el cambio climático</em>. <a href="https://www.eltiempo.com/vida/medio-ambiente/delfines-rosados-del-amazonas-estan-en-peligro-por-el-cambio-climatico-818387" target="_blank" rel="noopener">eltiempo.com</a></li>
+      <li>Trujillo, F., Alonso, J. C., Diazgranados, M. C., y Gómez, C. (Eds.). (2008). <em>Fauna acuática amenazada en la Amazonía colombiana: Análisis y propuestas para su conservación</em>. Fundación Omacha, Fundación Natura, Instituto Sinchi, Corpoamazonía. <a href="https://www.omacha.org/descargas/2008/fauna-acuatica-amenazada-amazonia-col.pdf" target="_blank" rel="noopener">omacha.org</a></li>
+      <li>Vanguardia. (2013, 30 de diciembre). <em>Colombia busca vincular rebeldes desmovilizados a conservación de la Amazonía</em>. <a href="https://www.vanguardia.com/colombia/2013/12/30/colombia-busca-vincular-rebeldes-desmovilizados-a-conservacion-de-la-amazonia/" target="_blank" rel="noopener">vanguardia.com</a></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <span>Página elaborada con fines educativos sobre la Amazonia colombiana.</span>
+    <span>Un recordatorio de que cuidar este ecosistema de flora y fauna depende de todos.</span>
+  </div>
+  <div class="container" style="margin-top:10px; font-size:0.85rem;">
+    <span>Autora: Sara Contreras Mejía</span>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var open = links.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        links.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
+</body>
+</html>
